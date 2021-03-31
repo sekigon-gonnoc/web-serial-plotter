@@ -1,0 +1,21 @@
+{
+  "name": "web-usb-plotter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.23.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "parcel": "^2.0.0-beta.2",
+    "prettier": "^2.2.1"
+  },
+  "browserlist": [
+    "since 2017-06"
+  ],
+  "scripts": {
+    "build": "export REVISION=$(git rev-parse --short HEAD);parcel build index.html --public-url .",
+    "start": "export REVISION=$(git rev-parse --short HEAD);parcel start index.html --https",
+    "fmt": "prettier --write package.json src/*.js src/*.ts *.html"
+  }
+}
