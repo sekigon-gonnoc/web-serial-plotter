@@ -32,8 +32,9 @@ class WebRawHID implements WebUsbComInterface {
   }
 
   async open(onConnect: () => void | null, _: object) {
-    const request = await navigator.hid.requestDevice({ filters: [] });
-    // const request = await navigator.hid.requestDevice({ filters: [{usagePage:0xff60, usage:0x61}] });
+    const request = await navigator.hid.requestDevice({
+      filters: [{ usagePage: 0xff31, usage: 0x74 }],
+    });
     console.log(request);
     this.port = request[0];
 

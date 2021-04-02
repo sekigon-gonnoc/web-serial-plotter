@@ -9,6 +9,10 @@ document.getElementById(
   "revision"
 ).innerText = `Revision:${process.env.REVISION}`;
 
+if (!navigator.serial) {
+  alert("Please use chrome or edge");
+}
+
 const baudList = [
   "raw hid",
   1200,
