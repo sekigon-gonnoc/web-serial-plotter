@@ -1,4 +1,6 @@
-class WebSerial {
+import { WebUsbComInterface } from "./webUsbComInterface";
+
+class WebSerial implements WebUsbComInterface {
   private receiveCallback: ((msg: Uint8Array) => void) | null = null;
   private closeCallback: (() => void) | null = null;
   private errorCallback: ((e: Error) => void) | null = null;
@@ -28,11 +30,14 @@ class WebSerial {
     this.errorCallback = handler;
   }
 
-  async open(onConnect: () => void | null, baudrate: number = 115200) {
+  async open(
+    onConnect: () => void | null,
+    param: object = { baudrate: 115200 }
+  ) {
     this.port = await navigator.serial.requestPort();
 
     try {
-      await this.port.open({ baudRate: baudrate, buffersize: 81920 });
+      await this.port.open({ baudRate: param.baudrate, buffersize: 81920 });
     } catch (e) {
       await this.port.close();
       return Promise.reject(e);
@@ -45,13 +50,13 @@ class WebSerial {
       onConnect();
     }
 
-    // this.readLoop();
+    await this.startReadLoop();
 
     this.writable = this.port.writable;
     console.log("open serial port");
   }
 
-  async startReadLoop() {
+  private async startReadLoop() {
     this.readLoop();
     await this.sleep(1000);
   }
