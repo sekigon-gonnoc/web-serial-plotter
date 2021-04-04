@@ -46,8 +46,8 @@ let buffer: number[][] = [[]];
 let labels: string[] = [""];
 
 document.getElementById("clear").onclick = () => {
-  Plotly.purge("plot");
   buffer = [[]];
+  Plotly.update("plot", { y: buffer });
 };
 
 document.getElementById("save").onclick = () => {
