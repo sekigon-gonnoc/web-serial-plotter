@@ -15,35 +15,41 @@ const StreamPlot = (props: StreamPlotState) => {
   const [revision, setRevision] = React.useState(0);
   const [trace, setTrace] = React.useState(props);
   const [dataLen, setDataLen] = React.useState(0);
+  const [layout, setLayout] = React.useState({
+    ...props.layout,
+    datarevision: revision,
+    showlegend: true,
+    legend: { x: 1, y: 0.5 },
+    yaxis: { side: "left" },
+    yaxis2: { side: "right", overlaying: "y" },
+    margin: { l: 30, b: 30, t: 30 },
+    autosize: true,
+  });
   useInterval(() => {
     if (
       (props.data.length > 0 && props.data[0]?.y?.length != dataLen) ||
       trace !== props.data
     ) {
-      setRevision(revision + 1);
+      const newRevision = revision + 1;
+      setRevision(newRevision);
+      setLayout({ ...layout, datarevision: newRevision });
       setTrace(props.data);
       setDataLen(props.data[0]?.y?.length);
     }
-    /* } */
   }, 60);
 
   return (
     <Plot
       data={props.data}
-      layout={{
-        ...props.layout,
-        datarevision: revision,
-        showlegend: true,
-        legend: { x: 1, y: 0.5 },
-        yaxis: { side: "left" },
-        yaxis2: { side: "right", overlaying: "y" },
-        margin: { l: 30, b: 30, t: 30 },
-        autosize: true,
-      }}
+      layout={layout}
       style={{ width: props.size.width, height: props.size.height }}
       revision={revision}
-      onInitialized={(_figure) => {}}
-      onUpdate={(_figure) => {}}
+      onInitialized={(figure) => {
+        setLayout(figure.layout);
+      }}
+      onUpdate={(figure) => {
+        setLayout(figure.layout);
+      }}
       useResizeHandler={true}
       onClick={(e) => {
         console.log("onClick", e);
