@@ -27,7 +27,7 @@ class WebSerial implements WebUsbComInterface {
     this.errorCallback = handler;
   }
   setCloseCallback(handler: () => void | null) {
-    this.errorCallback = handler;
+    this.closeCallback = handler;
   }
 
   async open(

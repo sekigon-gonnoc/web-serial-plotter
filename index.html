@@ -29,24 +29,17 @@
 
   <body>
     <main>
-      <h1>Web Serial plotter</h1>
-      <div id="control">
-        <select id="baudrate"></select
-        ><button id="connect"></button>
-        <button id="clear">Clear</button>
-        <button id="save">Save CSV</button>
-        <a id="download-file" href="#" download="plot.csv"></a>
-      </div>
-      <div id="plot"></div>
+      <div
+        id="root"
+        style="position: relative; min-height: 100vh; padding-bottom: 60px"
+      ></div>
       <div>
-        Data format: {data1},{data2},,,,, or
-        {label1}:{data1},{label2}:{data2},,,,,
+        <a
+          id="revision"
+          href="https://github.com/sekigon-gonnoc/web-serial-plotter"
+        ></a>
       </div>
-      <div><a id="revision" href="https://github.com/sekigon-gonnoc/web-serial-plotter"></a></div>
-      <div>
-        Copyright (c) 2021 <a href="https://nogikes.booth.pm/">のぎけす屋</a>
-      </div>
-      <script src="src/index.ts" charset="utf-8"></script>
+      <script src="src/index.tsx" charset="utf-8"></script>
     </main>
   </body>
 </html>
