@@ -134,6 +134,11 @@ class Control extends React.Component<ControlProps, ControlState> {
     }
 
     lines.slice(0, -1).forEach((line) => {
+      // ignore blank line
+      if (line.length == 0) {
+        return;
+      }
+
       let data = line.split(",");
 
       data.forEach((val: string, idx) => {
