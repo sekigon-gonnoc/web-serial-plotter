@@ -71,6 +71,7 @@ class WebRawHID implements WebUsbComInterface {
 
     if (this.port) {
       try {
+        this.port.removeEventListener("inputreport", this.receiveCallback);
         await this.port.close();
         this.port = null;
         this._connected = false;

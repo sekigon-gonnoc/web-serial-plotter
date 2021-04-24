@@ -74,7 +74,7 @@ class Control extends React.Component<ControlProps, ControlState> {
     for (let d of Object.values(this.state.data)) {
       d.splice(0);
     }
-    this.setState({ data: this.state.data });
+    this.setState({ data: this.state.data, recvLine: "" });
   }
 
   onSaveClick() {
