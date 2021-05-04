@@ -50,7 +50,7 @@ class App extends React.Component<any, AppState> {
     return (
       <ThemeProvider theme={this.theme}>
         <header>
-          <h2>Web Serial plotter</h2>
+          <h2>Web Serial Plotter</h2>
         </header>
         <Control
           data={this.state.plotData.dict}

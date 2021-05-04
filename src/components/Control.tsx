@@ -2,6 +2,7 @@ import { WebSerial } from "./../webSerial";
 import { WebRawHID } from "./../webRawHID";
 import { WebUsbComInterface } from "./../webUsbComInterface";
 import { BaudrateSelector } from "./BaudrateSelector";
+import { SerialSender } from "./SerialSender";
 import * as React from "react";
 import { Button, IconButton, Tooltip, Grid } from "@material-ui/core";
 import UsbIcon from "@material-ui/icons/Usb";
@@ -226,22 +227,29 @@ class Control extends React.Component<ControlProps, ControlState> {
 
   render() {
     return (
-      <Grid style={{ width: "650px" }} container spacing={1}>
-        <Grid item xs={10}>
-          {this.ControlInputs()}
+      <div>
+        <Grid style={{ width: "650px" }} container spacing={1}>
+          <Grid item xs={10}>
+            {this.ControlInputs()}
+          </Grid>
+          <Grid item xs={1}>
+            <this.HelpTooltip
+              title={
+                "This app plot data received through a serial port.\nAll plot panels are interactive, resizable, and movable.\n\nData format:\n<label1>:<data1>, <label2>:<data2>, ...\n<data1>,<data2>, ..."
+              }
+            >
+              <IconButton>
+                <HelpIcon />
+              </IconButton>
+            </this.HelpTooltip>
+          </Grid>
         </Grid>
-        <Grid item xs={1}>
-          <this.HelpTooltip
-            title={
-              "This app plot data received through a serial port.\nAll plot panels are interactive, resizable, and movable.\n\nData format:\n<label1>:<data1>, <label2>:<data2>, ...\n<data1>,<data2>, ..."
-            }
-          >
-            <IconButton>
-              <HelpIcon />
-            </IconButton>
-          </this.HelpTooltip>
-        </Grid>
-      </Grid>
+        <SerialSender
+          sender={async (value: string) => {
+            await this.state.com?.writeString(value.concat("\n"));
+          }}
+        />
+      </div>
     );
   }
 }
